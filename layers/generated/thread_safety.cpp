@@ -7179,6 +7179,22 @@ void ThreadSafety::PostCallRecordCmdSetFragmentShadingRateEnumNV(
     // Host access to commandBuffer must be externally synchronized
 }
 
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+
+void ThreadSafety::PreCallRecordAcquireWinrtDisplayNV(
+    VkPhysicalDevice                            physicalDevice,
+    VkDisplayKHR                                display) {
+    StartReadObject(display, "vkAcquireWinrtDisplayNV");
+}
+
+void ThreadSafety::PostCallRecordAcquireWinrtDisplayNV(
+    VkPhysicalDevice                            physicalDevice,
+    VkDisplayKHR                                display,
+    VkResult                                    result) {
+    FinishReadObject(display, "vkAcquireWinrtDisplayNV");
+}
+#endif // VK_USE_PLATFORM_WIN32_KHR
+
 #ifdef VK_USE_PLATFORM_DIRECTFB_EXT
 
 void ThreadSafety::PreCallRecordCreateDirectFBSurfaceEXT(

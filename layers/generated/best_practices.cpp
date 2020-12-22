@@ -2617,6 +2617,39 @@ void BestPractices::PostCallRecordSetPrivateDataEXT(
     }
 }
 
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+
+void BestPractices::PostCallRecordAcquireWinrtDisplayNV(
+    VkPhysicalDevice                            physicalDevice,
+    VkDisplayKHR                                display,
+    VkResult                                    result) {
+    ValidationStateTracker::PostCallRecordAcquireWinrtDisplayNV(physicalDevice, display, result);
+    if (result != VK_SUCCESS) {
+        static const std::vector<VkResult> error_codes = {VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_DEVICE_LOST,VK_ERROR_INITIALIZATION_FAILED};
+        static const std::vector<VkResult> success_codes = {};
+        ValidateReturnCodes("vkAcquireWinrtDisplayNV", result, error_codes, success_codes);
+    }
+}
+
+#endif // VK_USE_PLATFORM_WIN32_KHR
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+
+void BestPractices::PostCallRecordGetWinrtDisplayNV(
+    VkPhysicalDevice                            physicalDevice,
+    uint32_t                                    deviceRelativeId,
+    VkDisplayKHR*                               pDisplay,
+    VkResult                                    result) {
+    ValidationStateTracker::PostCallRecordGetWinrtDisplayNV(physicalDevice, deviceRelativeId, pDisplay, result);
+    if (result != VK_SUCCESS) {
+        static const std::vector<VkResult> error_codes = {VK_ERROR_OUT_OF_HOST_MEMORY,VK_ERROR_DEVICE_LOST,VK_ERROR_INITIALIZATION_FAILED};
+        static const std::vector<VkResult> success_codes = {};
+        ValidateReturnCodes("vkGetWinrtDisplayNV", result, error_codes, success_codes);
+    }
+}
+
+#endif // VK_USE_PLATFORM_WIN32_KHR
+
 #ifdef VK_USE_PLATFORM_DIRECTFB_EXT
 
 void BestPractices::PostCallRecordCreateDirectFBSurfaceEXT(

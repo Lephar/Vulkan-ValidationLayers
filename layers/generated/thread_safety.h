@@ -4868,6 +4868,18 @@ void PostCallRecordCmdSetFragmentShadingRateEnumNV(
     VkFragmentShadingRateNV                     shadingRate,
     const VkFragmentShadingRateCombinerOpKHR    combinerOps[2]) override;
 
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+
+void PreCallRecordAcquireWinrtDisplayNV(
+    VkPhysicalDevice                            physicalDevice,
+    VkDisplayKHR                                display) override;
+
+void PostCallRecordAcquireWinrtDisplayNV(
+    VkPhysicalDevice                            physicalDevice,
+    VkDisplayKHR                                display,
+    VkResult                                    result) override;
+#endif // VK_USE_PLATFORM_WIN32_KHR
+
 #ifdef VK_USE_PLATFORM_DIRECTFB_EXT
 
 void PreCallRecordCreateDirectFBSurfaceEXT(

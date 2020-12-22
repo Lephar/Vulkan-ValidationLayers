@@ -2532,6 +2532,24 @@ bool PreCallValidateCmdSetFragmentShadingRateEnumNV(
     VkFragmentShadingRateNV                     shadingRate,
     const VkFragmentShadingRateCombinerOpKHR    combinerOps[2]) const override;
 
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+bool PreCallValidateAcquireWinrtDisplayNV(
+    VkPhysicalDevice                            physicalDevice,
+    VkDisplayKHR                                display) const override;
+#endif // VK_USE_PLATFORM_WIN32_KHR
+
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+bool PreCallValidateGetWinrtDisplayNV(
+    VkPhysicalDevice                            physicalDevice,
+    uint32_t                                    deviceRelativeId,
+    VkDisplayKHR*                               pDisplay) const override;
+void PostCallRecordGetWinrtDisplayNV(
+    VkPhysicalDevice                            physicalDevice,
+    uint32_t                                    deviceRelativeId,
+    VkDisplayKHR*                               pDisplay,
+    VkResult                                    result) override;
+#endif // VK_USE_PLATFORM_WIN32_KHR
+
 #ifdef VK_USE_PLATFORM_DIRECTFB_EXT
 bool PreCallValidateCreateDirectFBSurfaceEXT(
     VkInstance                                  instance,

@@ -6707,6 +6707,42 @@ void CoreChecksOptickInstrumented::PostCallRecordCmdSetFragmentShadingRateEnumNV
     CoreChecks::PostCallRecordCmdSetFragmentShadingRateEnumNV(commandBuffer, shadingRate, combinerOps);
 }
 
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+bool CoreChecksOptickInstrumented::PreCallValidateAcquireWinrtDisplayNV(VkPhysicalDevice physicalDevice, VkDisplayKHR display) const {
+    OPTICK_EVENT();
+    auto result = CoreChecks::PreCallValidateAcquireWinrtDisplayNV(physicalDevice, display);
+    return result;
+}
+
+void CoreChecksOptickInstrumented::PreCallRecordAcquireWinrtDisplayNV(VkPhysicalDevice physicalDevice, VkDisplayKHR display) {
+    OPTICK_EVENT();
+    CoreChecks::PreCallRecordAcquireWinrtDisplayNV(physicalDevice, display);
+}
+
+void CoreChecksOptickInstrumented::PostCallRecordAcquireWinrtDisplayNV(VkPhysicalDevice physicalDevice, VkDisplayKHR display, VkResult result) {
+    OPTICK_EVENT();
+    CoreChecks::PostCallRecordAcquireWinrtDisplayNV(physicalDevice, display, result);
+}
+
+#endif // VK_USE_PLATFORM_WIN32_KHR
+#ifdef VK_USE_PLATFORM_WIN32_KHR
+bool CoreChecksOptickInstrumented::PreCallValidateGetWinrtDisplayNV(VkPhysicalDevice physicalDevice, uint32_t deviceRelativeId, VkDisplayKHR* pDisplay) const {
+    OPTICK_EVENT();
+    auto result = CoreChecks::PreCallValidateGetWinrtDisplayNV(physicalDevice, deviceRelativeId, pDisplay);
+    return result;
+}
+
+void CoreChecksOptickInstrumented::PreCallRecordGetWinrtDisplayNV(VkPhysicalDevice physicalDevice, uint32_t deviceRelativeId, VkDisplayKHR* pDisplay) {
+    OPTICK_EVENT();
+    CoreChecks::PreCallRecordGetWinrtDisplayNV(physicalDevice, deviceRelativeId, pDisplay);
+}
+
+void CoreChecksOptickInstrumented::PostCallRecordGetWinrtDisplayNV(VkPhysicalDevice physicalDevice, uint32_t deviceRelativeId, VkDisplayKHR* pDisplay, VkResult result) {
+    OPTICK_EVENT();
+    CoreChecks::PostCallRecordGetWinrtDisplayNV(physicalDevice, deviceRelativeId, pDisplay, result);
+}
+
+#endif // VK_USE_PLATFORM_WIN32_KHR
 #ifdef VK_USE_PLATFORM_DIRECTFB_EXT
 bool CoreChecksOptickInstrumented::PreCallValidateCreateDirectFBSurfaceEXT(VkInstance instance, const VkDirectFBSurfaceCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkSurfaceKHR* pSurface) const {
     OPTICK_EVENT();
