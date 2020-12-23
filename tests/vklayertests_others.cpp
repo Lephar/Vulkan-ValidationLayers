@@ -10178,9 +10178,6 @@ TEST_F(VkLayerTest, ValidateCmdBuildAccelerationStructuresKHR) {
     pBuildRangeInfos[0].primitiveOffset = 3;
     pBuildRangeInfos[0].transformOffset = 0;
 
-    m_errorMonitor->SetDesiredFailureMsg(kErrorBit, "VUID-vkCmdBuildAccelerationStructuresKHR-commandBuffer-recording");
-    vkCmdBuildAccelerationStructuresKHR(m_commandBuffer->handle(), 1, &build_info_khr, &pBuildRangeInfos);
-    m_errorMonitor->VerifyFound();
     m_commandBuffer->begin();
 
     m_errorMonitor->ExpectSuccess(kErrorBit);
@@ -10235,14 +10232,6 @@ TEST_F(VkLayerTest, ValidateCmdBuildAccelerationStructuresKHR) {
         VkAccelerationStructureBuildGeometryInfoKHR invalid_build_info_khr = build_info_khr;
         invalid_build_info_khr.flags = VK_BUILD_ACCELERATION_STRUCTURE_FLAG_BITS_MAX_ENUM_KHR;
         m_errorMonitor->SetDesiredFailureMsg(kErrorBit, "VUID-VkAccelerationStructureBuildGeometryInfoKHR-flags-parameter");
-        vkCmdBuildAccelerationStructuresKHR(m_commandBuffer->handle(), 1, &invalid_build_info_khr, &pBuildRangeInfos);
-        m_errorMonitor->VerifyFound();
-    }
-    // Invalid mode
-    {
-        VkAccelerationStructureBuildGeometryInfoKHR invalid_build_info_khr = build_info_khr;
-        invalid_build_info_khr.mode = VK_BUILD_ACCELERATION_STRUCTURE_MODE_MAX_ENUM_KHR;
-        m_errorMonitor->SetDesiredFailureMsg(kErrorBit, "VUID-VkAccelerationStructureBuildGeometryInfoKHR-mode-parameter");
         vkCmdBuildAccelerationStructuresKHR(m_commandBuffer->handle(), 1, &invalid_build_info_khr, &pBuildRangeInfos);
         m_errorMonitor->VerifyFound();
     }
